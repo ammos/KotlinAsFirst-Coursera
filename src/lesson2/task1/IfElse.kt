@@ -2,6 +2,8 @@
 package lesson2.task1
 
 import lesson1.task1.discriminant
+import kotlin.math.abs
+import kotlin.math.cos
 import kotlin.math.max
 import kotlin.math.sqrt
 
@@ -81,8 +83,14 @@ fun ageDescription(age: Int): String {
  */
 fun timeForHalfWay(t1: Double, v1: Double,
                    t2: Double, v2: Double,
-                   t3: Double, v3: Double): Double = TODO()
-
+                   t3: Double, v3: Double): Double {
+val distance = (t1 * v1 + t2 * v2 + t3 * v3) / 2.0
+return when {
+    distance <= t1 * v1 -> distance / v1
+    distance <= t1 * v1 + t2 * v2 -> t1 + (distance - t1 * v1) / v2
+    else -> t1 + t2 + (distance - t1 * v1 - t2 * v2) / v3
+}
+}
 /**
  * Простая
  *
@@ -120,6 +128,7 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
 
+
 /**
  * Средняя
  *
@@ -128,4 +137,12 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = TODO()
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
+    return when {
+        b < c || a > d             -> -1
+        a <= c && c <= b && b <= d -> b - c
+        c <= a && a <= d && d <= b -> d -a
+        c <= a && d <= d           -> b - a
+        else                       -> d - c
+    }
+}
